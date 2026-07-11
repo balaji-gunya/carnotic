@@ -81,13 +81,13 @@ const SCALE_COLS = [
 
 // Ordered list of JS modules — used by export to produce self-contained HTML
 const JS_MODULES = [
-  'assets/js/state.js',
-  'assets/js/utils.js',
-  'assets/js/popups.js',
-  'assets/js/menu.js',
-  'assets/js/rows.js',
-  'assets/js/nav.js',
-  'assets/js/operations.js',
-  'assets/js/export.js',
-  'assets/js/main.js',
+  'src/js/state.js',
+  'src/js/utils.js',
+  'src/js/popups.js',
+  'src/js/menu.js',
+  'src/js/rows.js',
+  'src/js/nav.js',
+  'src/js/operations.js',
+  'src/js/export.js',
+  'src/js/main.js',
 ];
