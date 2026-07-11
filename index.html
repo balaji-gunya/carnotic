@@ -234,39 +234,35 @@
 </main>
 
 <script>
-  fetch('songs/manifest.json')
-    .then(r => { if (!r.ok) throw new Error('Failed to load manifest'); return r.json(); })
-    .then(data => {
-      const songs = data.songs || [];
-      const grid = document.getElementById('song-grid');
-      const count = document.getElementById('song-count');
-      count.textContent = songs.length + (songs.length === 1 ? ' song' : ' songs');
+  const MANIFEST = {"songs":[{"title":"Rasathi Unna","composer":"Ilayaraja","folder":"rasathi-unna","html":"notation.html","pdf":"sheet.pdf"}]};
 
-      if (songs.length === 0) {
-        grid.innerHTML = '<div class="empty">No songs yet. Create one in the editor.</div>';
-        return;
-      }
+  (function () {
+    const songs = MANIFEST.songs || [];
+    const grid = document.getElementById('song-grid');
+    const count = document.getElementById('song-count');
+    count.textContent = songs.length + (songs.length === 1 ? ' song' : ' songs');
 
-      grid.innerHTML = '';
-      songs.forEach(s => {
-        const base = 'songs/' + s.folder + '/';
-        const card = document.createElement('div');
-        card.className = 'song-card';
-        card.innerHTML = `
-          <div class="song-title">${esc(s.title)}</div>
-          <div class="song-composer">${esc(s.composer)}</div>
-          <div class="song-actions">
-            ${ s.html ? `<a class="btn-view btn-view-html" href="${base}${s.html}" target="_blank">&#9654; Open notation</a>` : '' }
-            ${ s.pdf  ? `<a class="btn-view btn-view-pdf"  href="${base}${s.pdf}"  target="_blank">&#8595; PDF</a>` : '' }
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    })
-    .catch(() => {
-      document.getElementById('song-grid').innerHTML =
-        '<div class="load-error">Could not load song library.</div>';
+    if (songs.length === 0) {
+      grid.innerHTML = '<div class="empty">No songs yet. Create one in the editor.</div>';
+      return;
+    }
+
+    grid.innerHTML = '';
+    songs.forEach(s => {
+      const base = 'songs/' + s.folder + '/';
+      const card = document.createElement('div');
+      card.className = 'song-card';
+      card.innerHTML = `
+        <div class="song-title">${esc(s.title)}</div>
+        <div class="song-composer">${esc(s.composer)}</div>
+        <div class="song-actions">
+          ${ s.html ? `<a class="btn-view btn-view-html" href="${base}${s.html}" target="_blank">&#9654; Open notation</a>` : '' }
+          ${ s.pdf  ? `<a class="btn-view btn-view-pdf"  href="${base}${s.pdf}"  target="_blank">&#8595; PDF</a>` : '' }
+        </div>
+      `;
+      grid.appendChild(card);
     });
+  })();
 
   function esc(s) {
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');

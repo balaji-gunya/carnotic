@@ -59,15 +59,9 @@ songs/
 
 1. Notate the song in the editor and click **Download HTML** — save it to `songs/<song-name>/notation.html`
 2. Print from the editor (Ctrl/Cmd+P) → Save as PDF → save it to `songs/<song-name>/sheet.pdf`
-3. Add an entry to `songs/manifest.json`:
+3. Add an entry to the `MANIFEST` object at the top of `index.html`:
    ```json
-   {
-     "title": "Song Name",
-     "composer": "Composer Name",
-     "folder": "song-name",
-     "html": "notation.html",
-     "pdf": "sheet.pdf"
-   }
+   { "title": "Song Name", "composer": "Composer Name", "folder": "song-name", "html": "notation.html", "pdf": "sheet.pdf" }
    ```
 4. Commit and push — the home page picks it up automatically.
 
