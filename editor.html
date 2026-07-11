@@ -1887,10 +1887,10 @@
       });
       syncToggle();
 
-      // Row 2: Raga | Arohanam
+      // Row 2: Raga (plain text) | Arohanam (swara field)
       const ragaAroRow = document.createElement('div');
       ragaAroRow.className = 'sb-row';
-      [['Raga', ''], ['Arohanam', "S R G M P D N S'"]].forEach(([lbl, ph]) => {
+      [['Raga', '', false], ['Arohanam', "S R G M P D N S'", true]].forEach(([lbl, ph, isSwaraField]) => {
         const field = document.createElement('div');
         field.className = 'sb-field';
         const span = document.createElement('span');
@@ -1907,19 +1907,23 @@
         field.appendChild(span);
         field.appendChild(input);
         ragaAroRow.appendChild(field);
-        input.addEventListener('input', () => { if (!input.textContent) input.innerHTML = ''; });
-        input.addEventListener('keydown', e => { if (e.key === 'Enter') e.preventDefault(); });
-        input.addEventListener('paste', e => {
-          e.preventDefault();
-          document.execCommand('insertText', false, e.clipboardData.getData('text/plain'));
-        });
+        if (isSwaraField) {
+          initRagaField(input);
+        } else {
+          input.addEventListener('input', () => { if (!input.textContent) input.innerHTML = ''; });
+          input.addEventListener('keydown', e => { if (e.key === 'Enter') e.preventDefault(); });
+          input.addEventListener('paste', e => {
+            e.preventDefault();
+            document.execCommand('insertText', false, e.clipboardData.getData('text/plain'));
+          });
+        }
       });
       ragaSection.appendChild(ragaAroRow);
 
-      // Row 3: Tala | Avarohanam
+      // Row 3: Tala (plain text) | Avarohanam (swara field)
       const aroAvaro = document.createElement('div');
       aroAvaro.className = 'sb-row';
-      [['Tala', ''], ['Avarohanam', "S' N D P M G R S"]].forEach(([lbl, ph]) => {
+      [['Tala', '', false], ['Avarohanam', "S' N D P M G R S", true]].forEach(([lbl, ph, isSwaraField]) => {
         const field = document.createElement('div');
         field.className = 'sb-field';
         const span = document.createElement('span');
@@ -1933,7 +1937,16 @@
         field.appendChild(span);
         field.appendChild(input);
         aroAvaro.appendChild(field);
-        initRagaField(input);
+        if (isSwaraField) {
+          initRagaField(input);
+        } else {
+          input.addEventListener('input', () => { if (!input.textContent) input.innerHTML = ''; });
+          input.addEventListener('keydown', e => { if (e.key === 'Enter') e.preventDefault(); });
+          input.addEventListener('paste', e => {
+            e.preventDefault();
+            document.execCommand('insertText', false, e.clipboardData.getData('text/plain'));
+          });
+        }
       });
       ragaSection.appendChild(aroAvaro);
       block.appendChild(ragaSection);
