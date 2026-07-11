@@ -1901,15 +1901,15 @@
         input.contentEditable = 'true';
         input.spellcheck = false;
         input.dataset.ph = ph;
-        input.style.fontFamily = 'inherit';
-        input.style.fontWeight = '400';
-        input.style.color = '#374151';
         field.appendChild(span);
         field.appendChild(input);
         ragaAroRow.appendChild(field);
         if (isSwaraField) {
           initRagaField(input);
         } else {
+          input.style.fontFamily = 'inherit';
+          input.style.fontWeight = '400';
+          input.style.color = '#374151';
           input.addEventListener('input', () => { if (!input.textContent) input.innerHTML = ''; });
           input.addEventListener('keydown', e => { if (e.key === 'Enter') e.preventDefault(); });
           input.addEventListener('paste', e => {
@@ -1940,6 +1940,9 @@
         if (isSwaraField) {
           initRagaField(input);
         } else {
+          input.style.fontFamily = 'inherit';
+          input.style.fontWeight = '400';
+          input.style.color = '#374151';
           input.addEventListener('input', () => { if (!input.textContent) input.innerHTML = ''; });
           input.addEventListener('keydown', e => { if (e.key === 'Enter') e.preventDefault(); });
           input.addEventListener('paste', e => {
