@@ -3,14 +3,11 @@
 function showGrid() {
   document.getElementById('download-btn').style.display = 'flex';
   document.getElementById('export-btn').style.display   = 'flex';
-  document.getElementById('grid-area').appendChild(document.getElementById('add-triggers'));
-  document.getElementById('empty-state').style.display  = 'none';
 }
 
 function lazyInit() {
   if (beats > 0) return;
   beats = 4; groups = [4]; segments = [[4]];
-  showGrid();
 }
 
 function restart() {
@@ -18,13 +15,8 @@ function restart() {
   beats = 0; groups = []; segments = []; rowCount = 0; focusedInput = null; clipboard = null;
 
   document.getElementById('grid').innerHTML = '';
-  document.getElementById('download-btn').style.display = 'none';
-  document.getElementById('export-btn').style.display   = 'none';
-  document.querySelector('.empty-box').appendChild(document.getElementById('add-triggers'));
-  document.getElementById('empty-state').style.display  = 'flex';
 
   document.getElementById('grid').appendChild(makeScaleRow());
-  showGrid();
   renumber();
 }
 

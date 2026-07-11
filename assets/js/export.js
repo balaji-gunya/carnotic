@@ -147,7 +147,6 @@ function buildFallbackHTML(dataScript) {
   doc.getElementById('composer').value            = '';
   doc.getElementById('download-btn').style.display = 'none';
   doc.getElementById('export-btn').style.display  = 'none';
-  doc.getElementById('empty-state').style.display  = '';
   doc.querySelectorAll('.scale-chip').forEach(c => c.classList.remove('active'));
 
   const prev = doc.getElementById('carnotic-saved-data');
