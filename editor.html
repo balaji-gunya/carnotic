@@ -756,6 +756,7 @@
 
     .stok { border-radius: 2px; padding: 0 1px; cursor: pointer; transition: background 0.1s; position: relative; }
     .stok:hover { background: #fef2f2; }
+    .stok-sel { background: #fecaca !important; outline: 1px solid #f87171; }
     .stok-pending { opacity: 0.45; }
     .stok[data-speed="2"] { text-decoration: underline; text-decoration-color: #b91c1c; text-decoration-thickness: 1.5px; text-underline-offset: 0.35em; }
     .stok[data-speed="4"] { text-decoration: underline double; text-decoration-color: #b91c1c; text-underline-offset: 0.35em; }
@@ -902,6 +903,12 @@
     let editingTokenEl  = null;
     let pendingSpeed    = 0;
     let pendingGamaka   = '';
+    let selectedTokens  = [];
+
+    function clearTokenSelection() {
+      selectedTokens.forEach(t => t.classList.remove('stok-sel'));
+      selectedTokens = [];
+    }
 
 
     let _ruler = null;
@@ -939,6 +946,29 @@
 
     document.addEventListener('focusin', e => {
       if (e.target.matches('.cell-lyric, .cell-note')) focusedInput = e.target;
+    });
+
+    // Multi-token selection: drag across swaras then hit a speed/gamaka button
+    document.addEventListener('mouseup', e => {
+      const cell = e.target.closest?.('.cell-note');
+      if (!cell) return;
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed || sel.rangeCount === 0) return;
+      const range = sel.getRangeAt(0);
+      const tokens = [...cell.querySelectorAll('.stok')].filter(
+        t => !t.classList.contains('stok-pending') && range.intersectsNode(t)
+      );
+      if (tokens.length < 2) return;
+      clearTokenSelection();
+      selectedTokens = tokens;
+      tokens.forEach(t => t.classList.add('stok-sel'));
+      sel.removeAllRanges();
+    });
+
+    document.addEventListener('mousedown', e => {
+      if (!e.target.closest('.speed-btn, .gamaka-btn, .stok-sel, .stok')) {
+        clearTokenSelection();
+      }
     });
 
     // ── Setup ──────────────────────────────────────────────
@@ -1979,6 +2009,7 @@
       el.addEventListener('click', e => {
         const token = (e.target.closest ? e.target : e.target.parentElement)?.closest('.stok');
         if (!token || token.classList.contains('stok-pending')) return;
+        clearTokenSelection();
         editingTokenEl  = token;
         activePopupCell = el;
         const ch = token.textContent.trim().charAt(0);
@@ -2293,8 +2324,12 @@
         document.querySelectorAll('.speed-btn').forEach(b =>
           b.classList.toggle('active', parseInt(b.dataset.speed) === pendingSpeed)
         );
-        // In edit mode: apply speed to token immediately
-        if (editingTokenEl) editingTokenEl.dataset.speed = String(pendingSpeed);
+        if (selectedTokens.length > 0) {
+          selectedTokens.forEach(t => { t.dataset.speed = String(pendingSpeed); });
+          clearTokenSelection();
+        } else if (editingTokenEl) {
+          editingTokenEl.dataset.speed = String(pendingSpeed);
+        }
       });
     });
 
@@ -2306,7 +2341,13 @@
         document.querySelectorAll('.gamaka-btn').forEach(b =>
           b.classList.toggle('active', b.dataset.gamaka === pendingGamaka)
         );
-        if (editingTokenEl) {
+        if (selectedTokens.length > 0) {
+          selectedTokens.forEach(t => {
+            if (pendingGamaka) t.dataset.gamaka = pendingGamaka;
+            else delete t.dataset.gamaka;
+          });
+          clearTokenSelection();
+        } else if (editingTokenEl) {
           if (pendingGamaka) editingTokenEl.dataset.gamaka = pendingGamaka;
           else delete editingTokenEl.dataset.gamaka;
         }
