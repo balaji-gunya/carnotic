@@ -167,7 +167,7 @@ function escapeHTML(str) {
 async function prefetchBundle() {
   try {
     const [cssText, ...jsParts] = await Promise.all([
-      fetch('assets/css/editor.css').then(r => { if (!r.ok) throw new Error(); return r.text(); }),
+      fetch('src/css/editor.css').then(r => { if (!r.ok) throw new Error(); return r.text(); }),
       ...JS_MODULES.map(m => fetch(m).then(r => { if (!r.ok) throw new Error(); return r.text(); })),
     ]);
     _bundledCSS = cssText;
