@@ -6,9 +6,11 @@ function syncPopupMarkings() {
     b.classList.toggle('active', parseInt(b.dataset.speed) === pendingSpeed)
   );
   pendingGamaka = editingTokenEl?.dataset?.gamaka || '';
-  document.querySelectorAll('.gamaka-btn').forEach(b =>
+  document.querySelectorAll('.gamaka-btn[data-gamaka]').forEach(b =>
     b.classList.toggle('active', b.dataset.gamaka === pendingGamaka)
   );
+  pendingPluck = editingTokenEl ? editingTokenEl.classList.contains('stok-pluck') : false;
+  document.getElementById('pluck-btn').classList.toggle('active', pendingPluck);
 }
 
 function showSwaraPopup(letter, anchorEl) {
@@ -37,20 +39,27 @@ function showSwaraPopup(letter, anchorEl) {
     OCTAVE_DEFS.forEach(({ dot }) => {
       const text = buildSwaraText(letter, dot, digit);
       const btn  = document.createElement('button');
+      const idx  = popupOptions.length;
       btn.className = 'swara-opt';
       btn.textContent = text;
       btn.addEventListener('mousedown', e => e.preventDefault());
-      btn.addEventListener('click', () => selectSwaraOption(text));
+      btn.addEventListener('click', () => {
+        popupFocusIdx = popupFocusIdx === idx ? 1 : idx;
+        updatePopupFocus();
+      });
       grid.appendChild(btn);
-      popupOptions.push({ html: text, el: btn });
+      popupOptions.push({ el: btn, select: () => selectSwaraOption(text) });
     });
   });
 
   popupFocusIdx = 1;
   updatePopupFocus();
 
+  document.getElementById('pluck-btn').style.display = '';
+  document.getElementById('popup-submit-btn').style.display = '';
+
   const rect = (anchorEl.closest('.cell') || anchorEl).getBoundingClientRect();
-  const spaceBelow = window.innerHeight - rect.bottom - 4 - 145;
+  const spaceBelow = window.innerHeight - rect.bottom - 4 - 300;
   popup.style.left = Math.max(4, Math.min(rect.left, window.innerWidth - 180)) + 'px';
   if (spaceBelow > 60) {
     popup.style.top = (rect.bottom + 4) + 'px'; popup.style.bottom = 'auto';
@@ -65,6 +74,7 @@ function showSpeedPopup(anchorEl) {
   const popup = document.getElementById('swara-popup');
   document.getElementById('swara-popup-title').textContent = 'Speed';
   document.getElementById('swara-popup-grid').style.display = 'none';
+  document.getElementById('popup-submit-btn').style.display = 'none';
   popupOptions = []; popupFocusIdx = 0;
 
   syncPopupMarkings();
@@ -91,12 +101,13 @@ function movePopupFocus(delta) {
 
 function selectFocusedOption() {
   const opt = popupOptions[popupFocusIdx];
-  if (opt) selectSwaraOption(opt.html);
+  if (opt) opt.select();
 }
 
 function selectSwaraOption(text) {
   const speed   = pendingSpeed;
   const gamaka  = pendingGamaka;
+  const pluck   = pendingPluck;
   const pending = pendingTokenEl;
   const editing = editingTokenEl;
   const cell    = activePopupCell || focusedInput;
@@ -108,12 +119,14 @@ function selectSwaraOption(text) {
     pending.textContent   = text;
     pending.dataset.speed = String(speed);
     if (gamaka) pending.dataset.gamaka = gamaka; else delete pending.dataset.gamaka;
+    pending.classList.toggle('stok-pluck', pluck);
     pending.classList.remove('stok-pending');
     placeCaretAfterToken(pending);
   } else if (editing) {
     editing.textContent   = text;
     editing.dataset.speed = String(speed);
     if (gamaka) editing.dataset.gamaka = gamaka; else delete editing.dataset.gamaka;
+    editing.classList.toggle('stok-pluck', pluck);
     placeCaretAfterToken(editing);
   }
 }
@@ -134,7 +147,7 @@ function closePopup(keepLetter) {
       pendingTokenEl.remove();
     }
   }
-  pendingTokenEl = null; editingTokenEl = null; pendingSpeed = 0; pendingGamaka = '';
+  pendingTokenEl = null; editingTokenEl = null; pendingSpeed = 0; pendingGamaka = ''; pendingPluck = false;
   activePopupCell = null; pendingSwara = null; popupFocusIdx = 0; popupOptions = [];
 }
 

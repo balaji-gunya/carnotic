@@ -483,7 +483,7 @@ nav {
   font-weight: 700;
   color: #b91c1c;
   caret-color: #b91c1c;
-  padding-top: 14px;
+  padding-top: 16px;
   padding-bottom: 8px;
 }
 
@@ -711,36 +711,86 @@ nav {
 .swara-opt:hover { background: #fef2f2; border-color: #fecaca; }
 .swara-opt.active { background: #fef2f2; border-color: #b91c1c; box-shadow: 0 0 0 2px #fecaca; }
 .swara-opt sub { font-size: 0.6em; vertical-align: -0.35em; line-height: 0; }
+.swara-opt:disabled, .speed-btn:disabled, .gamaka-btn:disabled {
+  opacity: 0.35; cursor: not-allowed; pointer-events: none;
+}
 
 /* ── Swara tokens ── */
+@font-face {
+  font-family: 'CarnoticArrows';
+  src: url(data:font/woff2;base64,d09GMgABAAAAAAOgAAoAAAAAB0gAAANXAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAPAqIUIc5ATYCJAMUCxQABCAFdQeBERvoBQCeA+7OwjhoQkPQJQbK4/iixGHw///3bZ97X8M0YDhOlob2uUjixFuBf2ollj2M829oQl6pK2GhLm2hLIKVGcKb8aEGcv7n2t+J7dRQkb8h9s/HuWXw6KVd5pFIYqFAJVpeTM7//Xx9d508qwB6Z1S22UbSQWUdFG1V4uPpztcKnH3xAvmu5o7MWhwI8XUrF6u/iivWOdgESK0MwCUMMADf54pZSHca8zFYQ46BAffUlU+azmYCkm5FuGNOrmh6NPdUnx0j/4AKyNChCuU79QTQByIFfMrAEUqnUpEUT+MsmyC5RK4urZJwERKLxAZUG0hKo8FVKp2SSiUQqKUxzIxAY00NJCBkWkgplQK1Wq+kVuO46krtTKCx/1S7uplfXd3eWllpzKuqauuoqTF7qtZWgX3mbuBiaO+zEBsGDenH8YYBXa/agEBQJ22UwXSIPEZrewHMgKqgQCVMCxlpq0Q+TI9RP8LfmCN03g0VUA7zL0Somq2vYuTq6JmfBls6W8h/+y37DmpDEYpKOKxoexzjsHYjq2OfisDZNMT4Pg9wuapSExBUDEK2B3HBKDfusNFsDsoJnE2Ni1MumOEex13g4Qgv/JHk30JY77ssM9XulRf8E8T/AjjgZ1c/10a59zj0rYCy7pyMSxXnqocZDvrX87fT1+fjp6eHh7u735ubr89LofTr8+t0/3pm39z2yePn19O3873/nZ3Trc3N9fXWatVozIiq1QpX+FIxolkyJ3er1RwR3jqN/BTy7/HoeGdNfsHP7+3+WjcfdFuyS8NNCoVUeo01DS85tzy9zXfX9m+/v+T5NZ3jo4XM0dcaLVbrW9ujKSXTHrsh7Z5faJTKikfKe2XSxoV5dzp5eJFO0nS0vbW+WlBt77YEvI9bjx/clfT+8+Q/gG+Eo++h53TIjNgj4FhP++PkOxTD/25rAINMSDE4IZQhAhMdRjWwBox4X1HZiyflQD4QMog+kB1DRpHZCAr8wSM6FJg/HJ90ewIYAUIAHngRAgUzhgAC16MIYhlW2BGGK+4EBvSiDMjkCkooqZTSyqQmpiT08bV1fWYX7kRuHxVCyzoLwqAvHKj7HHlQ4gugUBzZkdctdCKPhfL5wvDxXmWzVhpwryXsdMK6Aw==) format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 .stok { border-radius: 2px; padding: 0 1px; cursor: pointer; transition: background 0.1s; position: relative; }
 .stok:hover { background: #fef2f2; }
 .stok-sel { background: #fecaca !important; outline: 1px solid #f87171; }
-.stok-pending { opacity: 0.45; }
+.stok-pluck { padding: 0 3px; margin: 0 2px; outline: 1.3px solid #b91c1c; border-radius: 50%; }
+.stok-space { white-space: pre; cursor: default; }
+.stok-space:hover { background: none; }
+.stok-arrow { cursor: default; font-family: 'CarnoticArrows', sans-serif; padding-left: 2px; padding-right: 0; }
+.stok-arrow:hover { background: none; }
 .stok[data-speed="2"] { text-decoration: underline; text-decoration-color: #b91c1c; text-decoration-thickness: 1.5px; text-underline-offset: 0.35em; }
 .stok[data-speed="4"] { text-decoration: underline double; text-decoration-color: #b91c1c; text-underline-offset: 0.35em; }
 .stok[data-speed="3"] { text-decoration: underline dotted; text-decoration-color: #b91c1c; text-decoration-thickness: 1.5px; text-underline-offset: 0.35em; }
-.stok[data-gamaka="wave"]::before,
-.stok[data-gamaka="slide"]::before {
-  content: "";
-  position: absolute; top: -14px; left: 0; right: 0;
+.stok[data-gamaka]::before {
+  position: absolute; top: -15px; left: 0; right: 0;
   text-align: center; color: #b91c1c;
-  font-size: 1.1em; font-weight: normal; line-height: 1;
+  font-size: 0.85em; font-weight: normal; line-height: 1;
   pointer-events: none; font-style: normal; text-decoration: none;
 }
-.stok[data-gamaka="wave"]::before  { content: "\223F"; }
-.stok[data-gamaka="slide"]::before { content: "\2192"; font-size: 0.65em; top: -9px; }
+.stok[data-gamaka="kampita"]::before     { content: ""; font-family: 'CarnoticArrows'; top: -12px; }
+.stok[data-gamaka="spuritha"]::before    { content: ""; font-family: 'CarnoticArrows'; }
+.stok[data-gamaka="pratyagatha"]::before { content: ""; font-family: 'CarnoticArrows'; }
+.stok[data-gamaka="nokku"]::before       { content: "w"; top: -14px; }
+.stok[data-gamaka="ravai"]::before       { content: "^"; top: -9px; }
+.stok[data-gamaka="kandippu"]::before    { content: ""; font-family: 'CarnoticArrows'; top: -12px; }
+.stok[data-gamaka="vali"]::before        { content: ""; font-family: 'CarnoticArrows'; top: -12px; }
+.stok[data-gamaka="odukkal"]::before     { content: ""; font-family: 'CarnoticArrows'; }
+.stok[data-gamaka="orikkal"]::before     { content: "x"; top: -10px; }
 
-.gamaka-row { display: flex; justify-content: center; gap: 4px; margin-top: 6px; }
-.gamaka-btn { padding: 3px 16px; border: 1px solid #e5e7eb; border-radius: 4px; background: #fff;
-  font-size: 0.7rem; font-weight: 600; color: #9ca3af; cursor: pointer; font-family: inherit; transition: all 0.1s; }
+.gamaka-header { display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f3f4f6; position: relative; }
+.gamaka-title { font-size: 0.58rem; color: #9ca3af; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.gamaka-info-btn {
+  width: 13px; height: 13px; border-radius: 50%; border: 1px solid #d1d5db; background: #f9fafb;
+  color: #9ca3af; font-size: 0.55rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0;
+}
+.gamaka-info-btn:hover, .gamaka-info-btn.active { border-color: #b91c1c; color: #b91c1c; background: #fef2f2; }
+.gamaka-legend {
+  position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
+  background: #1f2937; color: #f9fafb; border-radius: 6px; padding: 8px 10px;
+  font-size: 0.65rem; font-weight: 400; z-index: 20; white-space: nowrap;
+  display: grid; grid-template-columns: repeat(3, auto); gap: 4px 14px;
+}
+.gamaka-legend div { display: flex; align-items: center; gap: 5px; }
+.gamaka-legend .legend-glyph { font-family: 'CarnoticArrows'; font-size: 1.1em; width: 1.3em; text-align: center; }
+
+.gamaka-row { display: grid; grid-template-columns: repeat(3, 40px); gap: 4px; justify-content: center; margin-top: 6px; }
+.gamaka-btn {
+  height: 30px; border: 1px solid #e5e7eb; border-radius: 4px; background: #fff;
+  font-size: 1.05rem; color: #374151; cursor: pointer; font-family: 'Times New Roman', serif;
+  display: flex; align-items: center; justify-content: center; transition: all 0.1s;
+}
 .gamaka-btn.active { border-color: #b91c1c; color: #b91c1c; background: #fef2f2; }
+.gamaka-btn[data-gamaka="kampita"], .gamaka-btn[data-gamaka="spuritha"],
+.gamaka-btn[data-gamaka="pratyagatha"], .gamaka-btn[data-gamaka="kandippu"],
+.gamaka-btn[data-gamaka="vali"], .gamaka-btn[data-gamaka="odukkal"] { font-family: 'CarnoticArrows'; }
+
+.pluck-row { display: flex; justify-content: center; margin-top: 6px; }
 
 .speed-row { display: flex; gap: 4px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f3f4f6; justify-content: center; }
 .speed-btn { padding: 3px 12px; border: 1px solid #e5e7eb; border-radius: 4px; background: #fff;
   font-size: 0.7rem; font-weight: 600; color: #9ca3af; cursor: pointer;
   font-family: inherit; transition: all 0.1s; }
 .speed-btn.active { border-color: #b91c1c; color: #b91c1c; background: #fef2f2; }
+
+.popup-submit-btn {
+  display: block; width: 100%; margin-top: 8px; padding: 6px 0;
+  border: none; border-radius: 4px; background: #b91c1c; color: #fff;
+  font-size: 0.72rem; font-weight: 700; font-family: inherit; cursor: pointer;
+  transition: background 0.1s;
+}
+.popup-submit-btn:hover { background: #991b1b; }
 
 /* ── Print ── */
 :root { --print-date: ''; }

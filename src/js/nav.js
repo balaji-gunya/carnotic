@@ -34,7 +34,9 @@ function focusCellInput(row, beat, isNote) {
 function handleNav(e) {
   if (handlePopupKeydown(e)) return;
 
-  const row    = parseInt(e.target.dataset.row);
+  const row = parseInt(e.target.dataset.row);
+  if (Number.isNaN(row)) return; // not a grid cell (e.g. a raga/tala field) — no cross-cell nav to do
+
   const beat   = parseInt(e.target.dataset.beat);
   const isNote = e.target.classList.contains('cell-note');
 
@@ -66,9 +68,9 @@ function handleNav(e) {
   }
 }
 
-function insertSwaraToken(text, speed, isPending, cell) {
+function insertSwaraToken(text, speed, isPending, cell, extraClass) {
   const span = document.createElement('span');
-  span.className = 'stok' + (isPending ? ' stok-pending' : '');
+  span.className = 'stok' + (extraClass ? ' ' + extraClass : '') + (isPending ? ' stok-pending' : '');
   span.dataset.speed = String(speed);
   span.textContent = text;
   const sel = window.getSelection();

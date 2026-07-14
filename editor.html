@@ -58,10 +58,36 @@
     <button class="speed-btn"        data-speed="4">4×</button>
     <button class="speed-btn"        data-speed="3">Tisra</button>
   </div>
-  <div class="gamaka-row">
-    <button class="gamaka-btn" data-gamaka="wave">∿ Wave</button>
-    <button class="gamaka-btn" data-gamaka="slide">→ Slide</button>
+  <div class="gamaka-header">
+    <span class="gamaka-title">Gamakam</span>
+    <button class="gamaka-info-btn" id="gamaka-info-btn" type="button">i</button>
+    <div class="gamaka-legend" id="gamaka-legend" style="display:none">
+      <div><span class="legend-glyph"></span>Kampita</div>
+      <div><span class="legend-glyph"></span>Spuritha</div>
+      <div><span class="legend-glyph"></span>Pratyagatha</div>
+      <div><span class="legend-glyph">w</span>Nokku</div>
+      <div><span class="legend-glyph">^</span>Ravai</div>
+      <div><span class="legend-glyph"></span>Kandippu</div>
+      <div><span class="legend-glyph"></span>Vali</div>
+      <div><span class="legend-glyph"></span>Odukkal</div>
+      <div><span class="legend-glyph">x</span>Orikkal</div>
+    </div>
   </div>
+  <div class="gamaka-row">
+    <button class="gamaka-btn" data-gamaka="kampita"></button>
+    <button class="gamaka-btn" data-gamaka="spuritha"></button>
+    <button class="gamaka-btn" data-gamaka="pratyagatha"></button>
+    <button class="gamaka-btn" data-gamaka="nokku">w</button>
+    <button class="gamaka-btn" data-gamaka="ravai">^</button>
+    <button class="gamaka-btn" data-gamaka="kandippu"></button>
+    <button class="gamaka-btn" data-gamaka="vali"></button>
+    <button class="gamaka-btn" data-gamaka="odukkal"></button>
+    <button class="gamaka-btn" data-gamaka="orikkal">x</button>
+  </div>
+  <div class="pluck-row">
+    <button class="gamaka-btn" id="pluck-btn">○ Pluck</button>
+  </div>
+  <button class="popup-submit-btn" id="popup-submit-btn">Submit ↵</button>
 </div>
 
 <script src="src/js/state.js"></script>
@@ -69,7 +95,9 @@
 <script src="src/js/popups.js"></script>
 <script src="src/js/menu.js"></script>
 <script src="src/js/nav.js"></script>
+<script src="src/js/swara-input.js"></script>
 <script src="src/js/rows.js"></script>
+<script src="src/js/scale-row.js"></script>
 <script src="src/js/operations.js"></script>
 <script src="src/js/export.js"></script>
 <script src="src/js/main.js"></script>

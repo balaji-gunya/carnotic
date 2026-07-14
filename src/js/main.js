@@ -12,7 +12,7 @@ document.addEventListener('mouseup', e => {
   if (!sel || sel.isCollapsed || sel.rangeCount === 0) return;
   const range = sel.getRangeAt(0);
   const tokens = [...cell.querySelectorAll('.stok')].filter(
-    t => !t.classList.contains('stok-pending') && range.intersectsNode(t)
+    t => !t.classList.contains('stok-pending') && !t.classList.contains('stok-space') && range.intersectsNode(t)
   );
   if (tokens.length < 2) return;
   clearTokenSelection();
@@ -59,7 +59,8 @@ document.getElementById('dir-popup').querySelectorAll('.dir-opt').forEach(b => {
 document.querySelectorAll('.speed-btn').forEach(btn => {
   btn.addEventListener('mousedown', e => e.preventDefault());
   btn.addEventListener('click', () => {
-    pendingSpeed = parseInt(btn.dataset.speed);
+    const val = parseInt(btn.dataset.speed);
+    pendingSpeed = pendingSpeed === val ? 0 : val;
     document.querySelectorAll('.speed-btn').forEach(b =>
       b.classList.toggle('active', parseInt(b.dataset.speed) === pendingSpeed)
     );
@@ -73,12 +74,12 @@ document.querySelectorAll('.speed-btn').forEach(btn => {
 });
 
 // Gamaka buttons
-document.querySelectorAll('.gamaka-btn').forEach(btn => {
+document.querySelectorAll('.gamaka-btn[data-gamaka]').forEach(btn => {
   btn.addEventListener('mousedown', e => e.preventDefault());
   btn.addEventListener('click', () => {
     const val = btn.dataset.gamaka;
     pendingGamaka = pendingGamaka === val ? '' : val;
-    document.querySelectorAll('.gamaka-btn').forEach(b =>
+    document.querySelectorAll('.gamaka-btn[data-gamaka]').forEach(b =>
       b.classList.toggle('active', b.dataset.gamaka === pendingGamaka)
     );
     if (selectedTokens.length > 0) {
@@ -92,6 +93,39 @@ document.querySelectorAll('.gamaka-btn').forEach(btn => {
       else delete editingTokenEl.dataset.gamaka;
     }
   });
+});
+
+// Pluck button (marks a swara as a pluck / lyric-syllable start)
+document.getElementById('pluck-btn').addEventListener('mousedown', e => e.preventDefault());
+document.getElementById('pluck-btn').addEventListener('click', () => {
+  pendingPluck = !pendingPluck;
+  document.getElementById('pluck-btn').classList.toggle('active', pendingPluck);
+  if (selectedTokens.length > 0) {
+    selectedTokens.forEach(t => t.classList.toggle('stok-pluck', pendingPluck));
+    clearTokenSelection();
+  } else if (editingTokenEl) {
+    editingTokenEl.classList.toggle('stok-pluck', pendingPluck);
+  }
+});
+
+// Submit button — finalizes whichever swara variant is currently selected/focused
+document.getElementById('popup-submit-btn').addEventListener('mousedown', e => e.preventDefault());
+document.getElementById('popup-submit-btn').addEventListener('click', selectFocusedOption);
+
+// Gamakam info button — toggles the name legend
+document.getElementById('gamaka-info-btn').addEventListener('mousedown', e => e.preventDefault());
+document.getElementById('gamaka-info-btn').addEventListener('click', e => {
+  e.stopPropagation();
+  const legend = document.getElementById('gamaka-legend');
+  const showing = legend.style.display !== 'none';
+  legend.style.display = showing ? 'none' : 'grid';
+  document.getElementById('gamaka-info-btn').classList.toggle('active', !showing);
+});
+document.addEventListener('mousedown', e => {
+  if (!e.target.closest('.gamaka-header')) {
+    document.getElementById('gamaka-legend').style.display = 'none';
+    document.getElementById('gamaka-info-btn').classList.remove('active');
+  }
 });
 
 // ── Boot ──────────────────────────────────────────────────────────────────

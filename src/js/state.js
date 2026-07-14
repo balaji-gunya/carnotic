@@ -15,6 +15,7 @@ let pendingTokenEl  = null;
 let editingTokenEl  = null;
 let pendingSpeed    = 0;
 let pendingGamaka   = '';
+let pendingPluck    = false;
 
 // Multi-token selection state
 let selectedTokens  = [];
@@ -41,6 +42,11 @@ const SWARA_LETTERS = new Set(['S','R','G','M','P','D','N']);
 const NOTE_SYMBOLS  = new Set([',',';','-',' ']);
 const SUB_UNICODE   = { '₀':'0', '₁':'1', '₂':'2', '₃':'3' };
 const SUB_DIGITS    = { '0':'₀', '1':'₁', '2':'₂', '3':'₃' };
+
+// Private-Use-Area glyphs from the embedded CarnoticArrows font (see editor.css) —
+// compact slide marks, smaller than a swara letter, distinct from the system-font ↗/↘.
+const SLIDE_UP   = '';
+const SLIDE_DOWN = '';
 
 const SWARA_DIGITS = {
   S: [],         R: ['1','2','3'], G: ['0','1','2'],
@@ -85,8 +91,10 @@ const JS_MODULES = [
   'src/js/utils.js',
   'src/js/popups.js',
   'src/js/menu.js',
-  'src/js/rows.js',
   'src/js/nav.js',
+  'src/js/swara-input.js',
+  'src/js/rows.js',
+  'src/js/scale-row.js',
   'src/js/operations.js',
   'src/js/export.js',
   'src/js/main.js',
