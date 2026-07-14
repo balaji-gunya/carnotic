@@ -42,6 +42,17 @@ const NOTE_SYMBOLS  = new Set([',',';','-',' ']);
 const SUB_UNICODE   = { '₀':'0', '₁':'1', '₂':'2', '₃':'3' };
 const SUB_DIGITS    = { '0':'₀', '1':'₁', '2':'₂', '3':'₃' };
 
+// Private-Use-Area glyphs from the embedded CarnoticArrows font (see editor.css) —
+// compact slide marks, smaller than a swara letter, distinct from the system-font ↗/↘.
+const SLIDE_UP   = '';
+const SLIDE_DOWN = '';
+
+// Anuswara glyphs (small, lowered swara letters, no octave) from the same embedded font — 's' 'r' 'g' 'm' 'p' 'd' 'n' shrunk from Times New Roman outlines.
+const ANUSWARA_CHARS = {
+  S: '\ue010', R: '\ue011', G: '\ue012', M: '\ue013',
+  P: '\ue014', D: '\ue015', N: '\ue016',
+};
+
 const SWARA_DIGITS = {
   S: [],         R: ['1','2','3'], G: ['0','1','2'],
   M: ['1','2'],  P: [],           D: ['1','2','3'], N: ['0','1','2'],

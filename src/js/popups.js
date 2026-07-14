@@ -49,8 +49,11 @@ function showSwaraPopup(letter, anchorEl) {
   popupFocusIdx = 1;
   updatePopupFocus();
 
+  document.getElementById('anuswara-glyph').textContent = ANUSWARA_CHARS[letter] || '';
+  document.querySelector('.anuswara-row').style.display = '';
+
   const rect = (anchorEl.closest('.cell') || anchorEl).getBoundingClientRect();
-  const spaceBelow = window.innerHeight - rect.bottom - 4 - 145;
+  const spaceBelow = window.innerHeight - rect.bottom - 4 - 180;
   popup.style.left = Math.max(4, Math.min(rect.left, window.innerWidth - 180)) + 'px';
   if (spaceBelow > 60) {
     popup.style.top = (rect.bottom + 4) + 'px'; popup.style.bottom = 'auto';
@@ -65,6 +68,7 @@ function showSpeedPopup(anchorEl) {
   const popup = document.getElementById('swara-popup');
   document.getElementById('swara-popup-title').textContent = 'Speed';
   document.getElementById('swara-popup-grid').style.display = 'none';
+  document.querySelector('.anuswara-row').style.display = 'none';
   popupOptions = []; popupFocusIdx = 0;
 
   syncPopupMarkings();
@@ -116,6 +120,25 @@ function selectSwaraOption(text) {
     if (gamaka) editing.dataset.gamaka = gamaka; else delete editing.dataset.gamaka;
     placeCaretAfterToken(editing);
   }
+}
+
+function selectAnuswaraOption() {
+  const letter  = pendingSwara;
+  const pending = pendingTokenEl;
+  const editing = editingTokenEl;
+  const cell    = activePopupCell || focusedInput;
+  pendingTokenEl = null; editingTokenEl = null;
+  closePopup(false);
+  const char = ANUSWARA_CHARS[letter];
+  const target = pending || editing;
+  if (!cell || !char || !target) return;
+  cell.focus();
+  target.textContent = char;
+  target.dataset.speed = '0';
+  delete target.dataset.gamaka;
+  target.classList.remove('stok-pending');
+  target.classList.add('stok-anuswara');
+  placeCaretAfterToken(target);
 }
 
 function placeCaretAfterToken(span) {

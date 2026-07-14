@@ -94,6 +94,10 @@ document.querySelectorAll('.gamaka-btn').forEach(btn => {
   });
 });
 
+// Anuswara button
+document.getElementById('anuswara-btn').addEventListener('mousedown', e => e.preventDefault());
+document.getElementById('anuswara-btn').addEventListener('click', selectAnuswaraOption);
+
 // ── Boot ──────────────────────────────────────────────────────────────────
 
 prefetchBundle(); // async — populates _bundledCSS/_bundledJS for self-contained export

@@ -713,28 +713,42 @@ nav {
 .swara-opt sub { font-size: 0.6em; vertical-align: -0.35em; line-height: 0; }
 
 /* ── Swara tokens ── */
+@font-face {
+  font-family: 'CarnoticArrows';
+  src: url(data:font/woff2;base64,d09GMgABAAAAAASgAAoAAAAAB8gAAARXAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAPAqJZIdfATYCJAMkCxYABCAFdQdrG/gFAI7UTvFXTHSEmzWDBXaLN0nVjHImAv8OFYUTEwn/ocvp3dW2pziwnP9bm9YaQGtQgHE0Jq0JlGaBBCy9Teew8ihwkioSrD1j+1UQYl9sADGIgFgqAJg6FeAO3uGEbr/jAMYQOALAdAO6AOhCENmCBBsmAj8osSAI7nA99/t3NKHqHOsGru8BOyQYgC2Q03GzHm8DE2QtQ84WAoLgg5FhIvyTFKo2fho3RZRen6yvSq5qr0vSVSdV64HM2kZMS8DAtnrHHwXDCWLysRCTLUE6cyc1L0fjsksO09C4m5q9W6nZyuthPzUvBUMLMS2zVbfYuUcupEDQzFv4rIjGaTE8nF63aBVZzlOzP3la2VYwmGtbCHEGZ7w+LVPAoPBEH/ReuJNe99tBTAmL0MhbHa2BFgsal+tNK8DgP5WaV6MxYFobF6X30hlwmpOzxFzSL+eti21b7Vdvl9RTIQ3UKqeFzk1LWuBny4IhP8VildZrgR2SWtXW6Si1JO2j1XoKYdf57wRD0g5i4ixcDDpdaLei0GgeoQMDO3Ur+QOXozFkIbJ1S7YQ0yU0Xg4gWAQPFRimtmIWz1YRxGmrjCf3WwKGi9SsP586F0dXEVOSom46xtv2V+L69S9DDh8Ovbl+A+QVT2huHQ5polfwvkMNnciOVCfWIldPrzm54WS4T62nw5cmhokl3YnpmzO7RM3eqA44e8bB46W3uucHsTgzBno0pDgfX5cpt3lNaQsj1t24/jdfGJugpXWUtQwPsLUbEBaxWCpbH1DpBh19Zix39L8W5rcvUR6GGkaqgXC5l9jDd1OEre6YQSKZctaoOqPZj3aeP58XJY4bpGJiC96rT349JaO0cj933jss/r0df847TPNJJYpX16iS3I2PieZUDz/dyUToqbuVef270qFjhwcLeY6d2tV7tEO8zxct/Z+KNZYe/rb2oz1q5zmqfvcU2Pzl3NGOpTWUJwmi8q9n7bNTSWv2tDgNfszT/6n28VCHfsHB9v9IZfMLKt3kAAN17jS9aoVdwG4+La+OjeI+7n9Z5TxIyts02jCwqaKTC+NYbCHM/A7efTz8w2X2rlxdXNpaX0fF4wVwaUBUVy4kozAxqaBbotfoqNBoKyM9kFDhJk8Lz5oikR2Ir3BXJNXbqs8oHGN3JSdHpbk7QfdqWRAv/r+rzyjHON/HtvR/KtF+DxDZDfUJ571impxi4h5zdQ77wLV3RJRVKl0flH/zQrgN1mwcPLezMumjFIVPAAAeTejXJO/4/QrvoAkAhCDw5G46arxXR/E64IAQkuIdgCsD3oJTaozx4sqCDEIE2oFwo6rNgiKIAbSXKCRuFzEzQFgkkgGCE7C1RAAKCM/sOuy/H+r0YU8d3ofgjoBM6ArDYBAMhhHQF7pDOsBhi0fDcKiAntAbRsIAuw4EwM4kAChAIYpQjBJkUIoyJMwDTa8bIpPx9zp9oq6DRlYSqkC5qBiVoSxxCQA=) format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 .stok { border-radius: 2px; padding: 0 1px; cursor: pointer; transition: background 0.1s; position: relative; }
 .stok:hover { background: #fef2f2; }
 .stok-sel { background: #fecaca !important; outline: 1px solid #f87171; }
 .stok-pending { opacity: 0.45; }
+.stok-arrow { cursor: default; font-family: 'CarnoticArrows', sans-serif; }
+.stok-arrow:hover { background: none; }
+.stok-anuswara { cursor: default; font-family: 'CarnoticArrows', sans-serif; }
+.stok-anuswara:hover { background: none; }
 .stok[data-speed="2"] { text-decoration: underline; text-decoration-color: #b91c1c; text-decoration-thickness: 1.5px; text-underline-offset: 0.35em; }
 .stok[data-speed="4"] { text-decoration: underline double; text-decoration-color: #b91c1c; text-underline-offset: 0.35em; }
 .stok[data-speed="3"] { text-decoration: underline dotted; text-decoration-color: #b91c1c; text-decoration-thickness: 1.5px; text-underline-offset: 0.35em; }
-.stok[data-gamaka="wave"]::before,
-.stok[data-gamaka="slide"]::before {
-  content: "";
+.stok[data-gamaka="wave"]::before {
+  content: "\223F";
   position: absolute; top: -14px; left: 0; right: 0;
   text-align: center; color: #b91c1c;
   font-size: 1.1em; font-weight: normal; line-height: 1;
   pointer-events: none; font-style: normal; text-decoration: none;
 }
-.stok[data-gamaka="wave"]::before  { content: "\223F"; }
-.stok[data-gamaka="slide"]::before { content: "\2192"; font-size: 0.65em; top: -9px; }
 
 .gamaka-row { display: flex; justify-content: center; gap: 4px; margin-top: 6px; }
 .gamaka-btn { padding: 3px 16px; border: 1px solid #e5e7eb; border-radius: 4px; background: #fff;
   font-size: 0.7rem; font-weight: 600; color: #9ca3af; cursor: pointer; font-family: inherit; transition: all 0.1s; }
 .gamaka-btn.active { border-color: #b91c1c; color: #b91c1c; background: #fef2f2; }
+
+.anuswara-row { display: flex; justify-content: center; margin-top: 6px; }
+.anuswara-btn { display: flex; align-items: center; gap: 6px; padding: 3px 16px; border: 1px solid #e5e7eb;
+  border-radius: 4px; background: #fff; font-size: 0.7rem; font-weight: 600; color: #9ca3af;
+  cursor: pointer; font-family: inherit; transition: all 0.1s; }
+.anuswara-btn:hover { border-color: #b91c1c; color: #b91c1c; background: #fef2f2; }
+.anuswara-glyph { font-family: 'CarnoticArrows', sans-serif; font-size: 20px; line-height: 1; color: #374151; }
 
 .speed-row { display: flex; gap: 4px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f3f4f6; justify-content: center; }
 .speed-btn { padding: 3px 12px; border: 1px solid #e5e7eb; border-radius: 4px; background: #fff;
