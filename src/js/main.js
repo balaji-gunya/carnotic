@@ -73,12 +73,12 @@ document.querySelectorAll('.speed-btn').forEach(btn => {
 });
 
 // Gamaka buttons
-document.querySelectorAll('.gamaka-btn').forEach(btn => {
+document.querySelectorAll('.gamaka-btn[data-gamaka]').forEach(btn => {
   btn.addEventListener('mousedown', e => e.preventDefault());
   btn.addEventListener('click', () => {
     const val = btn.dataset.gamaka;
     pendingGamaka = pendingGamaka === val ? '' : val;
-    document.querySelectorAll('.gamaka-btn').forEach(b =>
+    document.querySelectorAll('.gamaka-btn[data-gamaka]').forEach(b =>
       b.classList.toggle('active', b.dataset.gamaka === pendingGamaka)
     );
     if (selectedTokens.length > 0) {
@@ -95,8 +95,8 @@ document.querySelectorAll('.gamaka-btn').forEach(btn => {
 });
 
 // Anuswara button
-document.getElementById('anuswara-btn').addEventListener('mousedown', e => e.preventDefault());
-document.getElementById('anuswara-btn').addEventListener('click', selectAnuswaraOption);
+document.getElementById('anu-btn').addEventListener('mousedown', e => e.preventDefault());
+document.getElementById('anu-btn').addEventListener('click', selectAnuswaraOption);
 
 // ── Boot ──────────────────────────────────────────────────────────────────
 

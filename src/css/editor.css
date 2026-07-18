@@ -715,7 +715,7 @@ nav {
 /* ── Swara tokens ── */
 @font-face {
   font-family: 'CarnoticArrows';
-  src: url(data:font/woff2;base64,d09GMgABAAAAAASgAAoAAAAAB8gAAARXAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAPAqJZIdfATYCJAMkCxYABCAFdQdrG/gFAI7UTvFXTHSEmzWDBXaLN0nVjHImAv8OFYUTEwn/ocvp3dW2pziwnP9bm9YaQGtQgHE0Jq0JlGaBBCy9Teew8ihwkioSrD1j+1UQYl9sADGIgFgqAJg6FeAO3uGEbr/jAMYQOALAdAO6AOhCENmCBBsmAj8osSAI7nA99/t3NKHqHOsGru8BOyQYgC2Q03GzHm8DE2QtQ84WAoLgg5FhIvyTFKo2fho3RZRen6yvSq5qr0vSVSdV64HM2kZMS8DAtnrHHwXDCWLysRCTLUE6cyc1L0fjsksO09C4m5q9W6nZyuthPzUvBUMLMS2zVbfYuUcupEDQzFv4rIjGaTE8nF63aBVZzlOzP3la2VYwmGtbCHEGZ7w+LVPAoPBEH/ReuJNe99tBTAmL0MhbHa2BFgsal+tNK8DgP5WaV6MxYFobF6X30hlwmpOzxFzSL+eti21b7Vdvl9RTIQ3UKqeFzk1LWuBny4IhP8VildZrgR2SWtXW6Si1JO2j1XoKYdf57wRD0g5i4ixcDDpdaLei0GgeoQMDO3Ur+QOXozFkIbJ1S7YQ0yU0Xg4gWAQPFRimtmIWz1YRxGmrjCf3WwKGi9SsP586F0dXEVOSom46xtv2V+L69S9DDh8Ovbl+A+QVT2huHQ5polfwvkMNnciOVCfWIldPrzm54WS4T62nw5cmhokl3YnpmzO7RM3eqA44e8bB46W3uucHsTgzBno0pDgfX5cpt3lNaQsj1t24/jdfGJugpXWUtQwPsLUbEBaxWCpbH1DpBh19Zix39L8W5rcvUR6GGkaqgXC5l9jDd1OEre6YQSKZctaoOqPZj3aeP58XJY4bpGJiC96rT349JaO0cj933jss/r0df847TPNJJYpX16iS3I2PieZUDz/dyUToqbuVef270qFjhwcLeY6d2tV7tEO8zxct/Z+KNZYe/rb2oz1q5zmqfvcU2Pzl3NGOpTWUJwmi8q9n7bNTSWv2tDgNfszT/6n28VCHfsHB9v9IZfMLKt3kAAN17jS9aoVdwG4+La+OjeI+7n9Z5TxIyts02jCwqaKTC+NYbCHM/A7efTz8w2X2rlxdXNpaX0fF4wVwaUBUVy4kozAxqaBbotfoqNBoKyM9kFDhJk8Lz5oikR2Ir3BXJNXbqs8oHGN3JSdHpbk7QfdqWRAv/r+rzyjHON/HtvR/KtF+DxDZDfUJ571impxi4h5zdQ77wLV3RJRVKl0flH/zQrgN1mwcPLezMumjFIVPAAAeTejXJO/4/QrvoAkAhCDw5G46arxXR/E64IAQkuIdgCsD3oJTaozx4sqCDEIE2oFwo6rNgiKIAbSXKCRuFzEzQFgkkgGCE7C1RAAKCM/sOuy/H+r0YU8d3ofgjoBM6ArDYBAMhhHQF7pDOsBhi0fDcKiAntAbRsIAuw4EwM4kAChAIYpQjBJkUIoyJMwDTa8bIpPx9zp9oq6DRlYSqkC5qBiVoSxxCQA=) format('woff2');
+  src: url(data:font/woff2;base64,d09GMgABAAAAAASYAAoAAAAAB8wAAARQAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAPAqJaIdfATYCJAMkCxYABCAFdQdrG/gFIOYIt2wGC+weeJIzgzPzUhMJ/w4VAyom8vOX0//+te0oDiznOW2NDbQGHWActXFNwcADlqy3KYaFR0JNnIoEq2ds3wpi7ILjQQoSIK4GALIWAtzBO5zY93cyAE+BIwAcX2CJgCUGuQGUKJISCAaZA0F0ZzJzv38Hk2nKTF/weQ/YgZAABqRk4WYz3oYhTVqNE08MCKJPR4aJDUlXaRoH63xV8Q3mGnN9Tb25obqhUXWjZkBmbSPWJSCwdmPKURBOEKvJQawGgnTmTmpbjpZll9ynoWU3tRnt1Obkm8F+alsKwmRiXUashsmu3okLKRC08QYhJ6JlWogAZzYvWkWO89QWQgE7awfB2jiZEF90JmiaPAUEfSDhoHHhTno/eAexpi5CC+/0cIY5HGhZbrauACFkKrWtRkvotMYeOuNSBTrNzzkSL5mX887Frq1uq7cLhqmQBbZraGVx07IWBBtYENLTLr5jDFzgioTd4JyOKkfOIdrITCHqrpCdIKTvIFbOwYVg0YVuJ4ot1gkNILBTt1I4bDlaIteh2LxkC7FeQstlf+kaBKhImGrHIp6tJ4jTVtnOH7wEhIvUZj6fuQipq4g1Xd82HcP9oX2iN6yH5F27kmH9Bqh8sX497EpO3oUbNsAhz5ZkR5Yn61Bqp48+ueFkjGlMgPuXiQyTRNoR6zcvdomWvdEo9OwZd/+XRm2HD1JpXiK098z0MmrzlC6vKZ3MSBtuXP+bL0tK1dOxlHX0CzW4do+OXSxXrA+t84UW7Wcs9wi5Fh28L00ZjTpGroMYZaDUP2hTrKHhmCCTTTlr0ZzR7UfXgJ/Py9OG9tQwSaXvtSe/nlJQWrefO2+MTnnvyp8zRpe+r1S9ukbV5G5KYgKnefjpTh5Ch7u38q5/V7u3aP5gIc+xU9sYB7mnmL7o6f9UqnO0DzG4DfIfM89D87uDyOUvrxauLB1NeZIq4V89a5+rRj56z2TPXo95+j/VP+7j3jUiwu0fuWJ+aZ2vEuBrgx/NqV/hGrqbzy4ey8ZzH/e/rPfqKeddJrgwsKm2pTfjUeEgzPzmxs7+ITEKNx9ubHL22iAP1eMFcMk7vg0XmVuWll7aNi1wUHxUgpORH0it9VVmx+RPkSkOpNT6qdLHGbRnVB5JuzIy4rP9PKHdPUU4L/2/jWmgR3LQYwP9n8r030Mlrn1MMXxg4kTPxOTHXFnBPvDpFBvvlMvXx5Q8uwD3AR2eEdVKnf5RjuInAACPLBYPcc/vX7+H4h1cBQBiEDmK9hwD3mtUvA7IADE53gG4sOEtOsXGRNU9UZpAjEBTEO9TrUdUAomA5kqVIOpyRoHEVRIFIHgC22pEoIKYvDZ9f/thyOl76Ii/A3cC5EEb6As9oRf0hy7QDnIA+q4fBP2gFjpAJxgA3c0GEMG4kACgCMUoQSnKkEE5KpAw55m5obdCFLzWGZK06TmgjnAtLsIVuBrnKyoB) format('woff2');
   font-weight: normal;
   font-style: normal;
 }
@@ -723,7 +723,7 @@ nav {
 .stok:hover { background: #fef2f2; }
 .stok-sel { background: #fecaca !important; outline: 1px solid #f87171; }
 .stok-pending { opacity: 0.45; }
-.stok-arrow { cursor: default; font-family: 'CarnoticArrows', sans-serif; }
+.stok-arrow { cursor: default; font-family: 'CarnoticArrows', sans-serif; padding-left: 2px; padding-right: 0; }
 .stok-arrow:hover { background: none; }
 .stok-anuswara { cursor: default; font-family: 'CarnoticArrows', sans-serif; }
 .stok-anuswara:hover { background: none; }
@@ -742,13 +742,6 @@ nav {
 .gamaka-btn { padding: 3px 16px; border: 1px solid #e5e7eb; border-radius: 4px; background: #fff;
   font-size: 0.7rem; font-weight: 600; color: #9ca3af; cursor: pointer; font-family: inherit; transition: all 0.1s; }
 .gamaka-btn.active { border-color: #b91c1c; color: #b91c1c; background: #fef2f2; }
-
-.anuswara-row { display: flex; justify-content: center; margin-top: 6px; }
-.anuswara-btn { display: flex; align-items: center; gap: 6px; padding: 3px 16px; border: 1px solid #e5e7eb;
-  border-radius: 4px; background: #fff; font-size: 0.7rem; font-weight: 600; color: #9ca3af;
-  cursor: pointer; font-family: inherit; transition: all 0.1s; }
-.anuswara-btn:hover { border-color: #b91c1c; color: #b91c1c; background: #fef2f2; }
-.anuswara-glyph { font-family: 'CarnoticArrows', sans-serif; font-size: 20px; line-height: 1; color: #374151; }
 
 .speed-row { display: flex; gap: 4px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f3f4f6; justify-content: center; }
 .speed-btn { padding: 3px 12px; border: 1px solid #e5e7eb; border-radius: 4px; background: #fff;

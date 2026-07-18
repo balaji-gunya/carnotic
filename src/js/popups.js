@@ -6,7 +6,7 @@ function syncPopupMarkings() {
     b.classList.toggle('active', parseInt(b.dataset.speed) === pendingSpeed)
   );
   pendingGamaka = editingTokenEl?.dataset?.gamaka || '';
-  document.querySelectorAll('.gamaka-btn').forEach(b =>
+  document.querySelectorAll('.gamaka-btn[data-gamaka]').forEach(b =>
     b.classList.toggle('active', b.dataset.gamaka === pendingGamaka)
   );
 }
@@ -42,15 +42,14 @@ function showSwaraPopup(letter, anchorEl) {
       btn.addEventListener('mousedown', e => e.preventDefault());
       btn.addEventListener('click', () => selectSwaraOption(text));
       grid.appendChild(btn);
-      popupOptions.push({ html: text, el: btn });
+      popupOptions.push({ el: btn, select: () => selectSwaraOption(text) });
     });
   });
 
   popupFocusIdx = 1;
   updatePopupFocus();
 
-  document.getElementById('anuswara-glyph').textContent = ANUSWARA_CHARS[letter] || '';
-  document.querySelector('.anuswara-row').style.display = '';
+  document.getElementById('anu-btn').style.display = '';
 
   const rect = (anchorEl.closest('.cell') || anchorEl).getBoundingClientRect();
   const spaceBelow = window.innerHeight - rect.bottom - 4 - 180;
@@ -68,7 +67,7 @@ function showSpeedPopup(anchorEl) {
   const popup = document.getElementById('swara-popup');
   document.getElementById('swara-popup-title').textContent = 'Speed';
   document.getElementById('swara-popup-grid').style.display = 'none';
-  document.querySelector('.anuswara-row').style.display = 'none';
+  document.getElementById('anu-btn').style.display = 'none';
   popupOptions = []; popupFocusIdx = 0;
 
   syncPopupMarkings();
@@ -95,7 +94,7 @@ function movePopupFocus(delta) {
 
 function selectFocusedOption() {
   const opt = popupOptions[popupFocusIdx];
-  if (opt) selectSwaraOption(opt.html);
+  if (opt) opt.select();
 }
 
 function selectSwaraOption(text) {
