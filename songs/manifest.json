@@ -6,6 +6,12 @@
       "folder": "rasathi-unna",
       "html": "notation.html",
       "pdf": "sheet.pdf"
+    },
+    {
+      "title": "Malayamarutham",
+      "composer": "Tyagaraja",
+      "folder": "malayamarutham",
+      "html": "notation.html"
     }
   ]
 }
