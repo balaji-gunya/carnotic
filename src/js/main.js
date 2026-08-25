@@ -67,8 +67,9 @@ document.querySelectorAll('.speed-btn').forEach(btn => {
     if (selectedTokens.length > 0) {
       selectedTokens.forEach(t => { t.dataset.speed = String(pendingSpeed); });
       clearTokenSelection();
-    } else if (editingTokenEl) {
-      editingTokenEl.dataset.speed = String(pendingSpeed);
+    } else {
+      const token = commitPendingToken();
+      if (token) token.dataset.speed = String(pendingSpeed);
     }
   });
 });
@@ -88,12 +89,19 @@ document.querySelectorAll('.gamaka-btn[data-gamaka]').forEach(btn => {
         else delete t.dataset.gamaka;
       });
       clearTokenSelection();
-    } else if (editingTokenEl) {
-      if (pendingGamaka) editingTokenEl.dataset.gamaka = pendingGamaka;
-      else delete editingTokenEl.dataset.gamaka;
+    } else {
+      const token = commitPendingToken();
+      if (token) {
+        if (pendingGamaka) token.dataset.gamaka = pendingGamaka;
+        else delete token.dataset.gamaka;
+      }
     }
   });
 });
+
+// Popup close button
+document.getElementById('popup-close-btn').addEventListener('mousedown', e => e.preventDefault());
+document.getElementById('popup-close-btn').addEventListener('click', () => closePopup(false));
 
 // Pluck button (marks a swara as a pluck / lyric-syllable start)
 document.getElementById('pluck-btn').addEventListener('mousedown', e => e.preventDefault());
@@ -103,14 +111,11 @@ document.getElementById('pluck-btn').addEventListener('click', () => {
   if (selectedTokens.length > 0) {
     selectedTokens.forEach(t => t.classList.toggle('stok-pluck', pendingPluck));
     clearTokenSelection();
-  } else if (editingTokenEl) {
-    editingTokenEl.classList.toggle('stok-pluck', pendingPluck);
+  } else {
+    const token = commitPendingToken();
+    if (token) token.classList.toggle('stok-pluck', pendingPluck);
   }
 });
-
-// Submit button — finalizes whichever swara variant is currently selected/focused
-document.getElementById('popup-submit-btn').addEventListener('mousedown', e => e.preventDefault());
-document.getElementById('popup-submit-btn').addEventListener('click', selectFocusedOption);
 
 // Gamakam info button — toggles the name legend
 document.getElementById('gamaka-info-btn').addEventListener('mousedown', e => e.preventDefault());

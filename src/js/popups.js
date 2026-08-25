@@ -28,13 +28,6 @@ function showSwaraPopup(letter, anchorEl) {
   grid.style.display = '';
   grid.innerHTML = '';
 
-  OCTAVE_DEFS.forEach(({ label }) => {
-    const h = document.createElement('div');
-    h.className = 'swara-col-hdr';
-    h.textContent = label;
-    grid.appendChild(h);
-  });
-
   rowDigits.forEach(digit => {
     OCTAVE_DEFS.forEach(({ dot }) => {
       const text = buildSwaraText(letter, dot, digit);
@@ -43,10 +36,7 @@ function showSwaraPopup(letter, anchorEl) {
       btn.className = 'swara-opt';
       btn.textContent = text;
       btn.addEventListener('mousedown', e => e.preventDefault());
-      btn.addEventListener('click', () => {
-        popupFocusIdx = popupFocusIdx === idx ? 1 : idx;
-        updatePopupFocus();
-      });
+      btn.addEventListener('click', () => { popupFocusIdx = idx; updatePopupFocus(); applySwaraVariant(text); });
       grid.appendChild(btn);
       popupOptions.push({ el: btn, select: () => selectSwaraOption(text) });
     });
@@ -56,10 +46,9 @@ function showSwaraPopup(letter, anchorEl) {
   updatePopupFocus();
 
   document.getElementById('pluck-btn').style.display = '';
-  document.getElementById('popup-submit-btn').style.display = '';
 
   const rect = (anchorEl.closest('.cell') || anchorEl).getBoundingClientRect();
-  const spaceBelow = window.innerHeight - rect.bottom - 4 - 300;
+  const spaceBelow = window.innerHeight - rect.bottom - 4 - 260;
   popup.style.left = Math.max(4, Math.min(rect.left, window.innerWidth - 180)) + 'px';
   if (spaceBelow > 60) {
     popup.style.top = (rect.bottom + 4) + 'px'; popup.style.bottom = 'auto';
@@ -74,7 +63,6 @@ function showSpeedPopup(anchorEl) {
   const popup = document.getElementById('swara-popup');
   document.getElementById('swara-popup-title').textContent = 'Speed';
   document.getElementById('swara-popup-grid').style.display = 'none';
-  document.getElementById('popup-submit-btn').style.display = 'none';
   popupOptions = []; popupFocusIdx = 0;
 
   syncPopupMarkings();
@@ -104,31 +92,35 @@ function selectFocusedOption() {
   if (opt) opt.select();
 }
 
-function selectSwaraOption(text) {
-  const speed   = pendingSpeed;
-  const gamaka  = pendingGamaka;
-  const pluck   = pendingPluck;
-  const pending = pendingTokenEl;
-  const editing = editingTokenEl;
-  const cell    = activePopupCell || focusedInput;
-  pendingTokenEl = null; editingTokenEl = null;
-  closePopup(false);
-  if (!cell) return;
-  cell.focus();
-  if (pending) {
-    pending.textContent   = text;
-    pending.dataset.speed = String(speed);
-    if (gamaka) pending.dataset.gamaka = gamaka; else delete pending.dataset.gamaka;
-    pending.classList.toggle('stok-pluck', pluck);
-    pending.classList.remove('stok-pending');
-    placeCaretAfterToken(pending);
-  } else if (editing) {
-    editing.textContent   = text;
-    editing.dataset.speed = String(speed);
-    if (gamaka) editing.dataset.gamaka = gamaka; else delete editing.dataset.gamaka;
-    editing.classList.toggle('stok-pluck', pluck);
-    placeCaretAfterToken(editing);
+// A freshly-typed letter starts as an unconfirmed pendingTokenEl (dashed
+// styling). The first control the user interacts with in the popup — a grid
+// variant, speed, gamaka, or pluck — confirms it into a normal editingTokenEl
+// so later clicks in the same popup session keep editing the same token.
+function commitPendingToken() {
+  if (pendingTokenEl) {
+    pendingTokenEl.classList.remove('stok-pending');
+    editingTokenEl = pendingTokenEl;
+    pendingTokenEl = null;
   }
+  return editingTokenEl;
+}
+
+// Applies live and keeps the popup open, so further marks can still be layered on.
+function applySwaraVariant(text) {
+  const token = commitPendingToken();
+  if (!token) return;
+  token.textContent   = text;
+  token.dataset.speed = String(pendingSpeed);
+  if (pendingGamaka) token.dataset.gamaka = pendingGamaka; else delete token.dataset.gamaka;
+  token.classList.toggle('stok-pluck', pendingPluck);
+  if (activePopupCell) activePopupCell.focus();
+  placeCaretAfterToken(token);
+}
+
+// Applies and closes the popup — used by the Enter/Tab keyboard shortcut.
+function selectSwaraOption(text) {
+  applySwaraVariant(text);
+  closePopup(false);
 }
 
 function placeCaretAfterToken(span) {
