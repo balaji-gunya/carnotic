@@ -139,45 +139,61 @@ function attachSwaraInput(el) {
     }
     if (e.key.length > 1) return;
     e.preventDefault();
+    let inserted = null;   // the token just added (if any), so it can be undone
+    let openPopupFor = null;
     if (SWARA_LETTERS.has(e.key.toUpperCase())) {
       const letter  = e.key.toUpperCase();
       const def     = scaleDefaults[letter];
       const isUpper = e.key === e.key.toUpperCase();
       if (!isUpper) {
-        insertSwaraToken(letter, 0, false, el);
+        inserted = insertSwaraToken(letter, 0, false, el);
       } else if (!e.shiftKey && def !== null && def !== undefined) {
-        insertSwaraToken(buildSwaraText(letter, '', def), 0, false, el);
+        inserted = insertSwaraToken(buildSwaraText(letter, '', def), 0, false, el);
       } else {
-        pendingTokenEl = insertSwaraToken(letter, 0, true, el);
-        showSwaraPopup(letter, el);
+        inserted = insertSwaraToken(letter, 0, true, el);
+        openPopupFor = letter;
       }
     } else if (NOTE_SYMBOLS.has(e.key)) {
       if (e.key === ',' || e.key === ';') {
-        insertSwaraToken(e.key, 0, false, el);
+        inserted = insertSwaraToken(e.key, 0, false, el);
       } else if (e.key === ' ') {
         // a lone space collapses to zero visual width inside its own span
         // (unlike a letter's glyph); .stok-space keeps it from collapsing
-        insertSwaraToken(e.key, 0, false, el, 'stok-space');
+        inserted = insertSwaraToken(e.key, 0, false, el, 'stok-space');
       } else {
         document.execCommand('insertText', false, e.key);
       }
     } else if (e.key === '/' || e.key === '\\') {
-      insertSwaraToken(e.key === '/' ? SLIDE_UP : SLIDE_DOWN, 0, false, el, 'stok-arrow');
+      inserted = insertSwaraToken(e.key === '/' ? SLIDE_UP : SLIDE_DOWN, 0, false, el, 'stok-arrow');
     } else if (DIGIT_KEYS.has(e.key)) {
       tryInsertDigit(e.key, el);
     }
+    // insertSwaraToken mutates the DOM directly (no 'input' event fires), so the
+    // input listener that runs fitCell never triggers on swara typing — re-fit
+    // here. If the new token can't fit even at the font floor, reject it (undo)
+    // and warn, so the beat never overflows its box.
+    if (inserted && fitCell(el)) {
+      inserted.remove();
+      const r = document.createRange();
+      r.selectNodeContents(el); r.collapse(false);
+      const sel = window.getSelection();
+      sel.removeAllRanges(); sel.addRange(r);
+      fitCell(el);
+      showToast('Too many swaras for one beat — split them across beats', el);
+      return;
+    }
+    if (openPopupFor) { pendingTokenEl = inserted; showSwaraPopup(openPopupFor, el); }
+    else fitCell(el);
   });
+  // Paste is disallowed in swara boxes: pasted text lands as raw characters
+  // rather than proper .stok tokens, which breaks editing/nav. Swaras must be
+  // typed one at a time.
   el.addEventListener('paste', e => {
     e.preventDefault();
-    const raw = e.clipboardData.getData('text/plain');
-    let out = '';
-    for (const ch of raw) {
-      if (SWARA_LETTERS.has(ch.toUpperCase())) out += ch.toUpperCase();
-      else if (NOTE_SYMBOLS.has(ch)) out += ch;
-      else if (SUB_UNICODE[ch]) out += ch;
-    }
-    if (out) document.execCommand('insertText', false, out);
+    showToast('Paste is not supported here — type swaras one at a time', el);
   });
+  // drag-and-drop injects raw text too — block it for the same reason
+  el.addEventListener('drop', e => e.preventDefault());
 }
 
 function makePlainTextField(input) {

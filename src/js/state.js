@@ -24,9 +24,6 @@ let selectedTokens  = [];
 let _dirPopupKey    = null;
 let _dirPopupDirSp  = null;
 
-// Font measurement ruler
-let _ruler = null;
-
 // Pre-fetched bundle for self-contained export
 let _bundledCSS = null;
 let _bundledJS  = null;
