@@ -751,12 +751,12 @@ nav {
 .stok[data-gamaka="kampita"]::before     { content: ""; font-family: 'CarnoticArrows'; top: -12px; }
 .stok[data-gamaka="spuritha"]::before    { content: ""; font-family: 'CarnoticArrows'; }
 .stok[data-gamaka="pratyagatha"]::before { content: ""; font-family: 'CarnoticArrows'; }
-.stok[data-gamaka="nokku"]::before       { content: "w"; top: -14px; }
-.stok[data-gamaka="ravai"]::before       { content: "^"; top: -9px; }
+.stok[data-gamaka="nokku"]::before       { content: "w"; top: -15px; }
+.stok[data-gamaka="ravai"]::before       { content: "^"; top: -11px; }
 .stok[data-gamaka="kandippu"]::before    { content: ""; font-family: 'CarnoticArrows'; top: -12px; }
 .stok[data-gamaka="vali"]::before        { content: ""; font-family: 'CarnoticArrows'; top: -12px; }
 .stok[data-gamaka="odukkal"]::before     { content: ""; font-family: 'CarnoticArrows'; }
-.stok[data-gamaka="orikkal"]::before     { content: "x"; top: -10px; }
+.stok[data-gamaka="orikkal"]::before     { content: "x"; top: -15px; }
 
 .gamaka-header { display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f3f4f6; position: relative; }
 .gamaka-title { font-size: 0.58rem; color: #9ca3af; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
